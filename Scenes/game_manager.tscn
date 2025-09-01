@@ -1,12 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=5 format=3 uid="uid://ctxhvvde3yib3"]
 
 [ext_resource type="Texture2D" uid="uid://bwxmynjax8la6" path="res://Images/level1.png" id="1_oj352"]
+[ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5fcp"]
+size = Vector2(20, 809)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq00h"]
+size = Vector2(641.5, 239)
 
 [node name="GameManager" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(5, 5)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="level1_background" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
 scale = Vector2(5, 5)
 texture = ExtResource("1_oj352")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-410, -6.5)
+shape = SubResource("RectangleShape2D_e5fcp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-79.75, -244.5)
+shape = SubResource("RectangleShape2D_sq00h")
+
+[node name="dog" parent="." instance=ExtResource("2_e5fcp")]
+position = Vector2(219, 54)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+position = Vector2(-302, -135)
+build_mode = 1
+polygon = PackedVector2Array(-18, 18, -97, 18, -103, 305, 61, 304, 61, 412, 158, 410, 158, 497, 702, 499, 697, 17, 14, 18)
