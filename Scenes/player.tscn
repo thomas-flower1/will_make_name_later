@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dtx7amvgy0jct"]
+
+[node name="Player" type="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
