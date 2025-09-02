@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://dw7wrlmhj82qw"]
+
+[ext_resource type="Script" uid="uid://dyg8j8eh44fp5" path="res://Scripts/box.gd" id="1_2jyye"]
+[ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="1_xkb4e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ego7h"]
+size = Vector2(12.4, 0.8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3sev"]
+size = Vector2(1.3, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jyye"]
+size = Vector2(1.35, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6vpp"]
+size = Vector2(12.2, 1.1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkb4e"]
+size = Vector2(13.2, 14.2)
+
+[node name="box" type="StaticBody2D"]
+scale = Vector2(5, 5)
+collision_mask = 3
+script = ExtResource("1_2jyye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xkb4e")
+region_enabled = true
+region_rect = Rect2(33, 16, 14, 15)
+
+[node name="bottom" type="Area2D" parent="."]
+
+[node name="bottom" type="CollisionShape2D" parent="bottom"]
+position = Vector2(-1.42109e-14, 7)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ego7h")
+metadata/id = 0
+
+[node name="right" type="Area2D" parent="."]
+
+[node name="right" type="CollisionShape2D" parent="right"]
+position = Vector2(6.4, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_r3sev")
+metadata/id = 3
+
+[node name="left" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="left" type="CollisionShape2D" parent="left"]
+position = Vector2(-6.4, -0.2)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_2jyye")
+metadata/id = 1
+
+[node name="up" type="Area2D" parent="."]
+
+[node name="up" type="CollisionShape2D" parent="up"]
+position = Vector2(0.2, -7)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y6vpp")
+metadata/id = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.13249e-07, 0.0999999)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_xkb4e")
+
+[connection signal="body_entered" from="bottom" to="." method="_on_bottom_body_entered"]
+[connection signal="body_entered" from="right" to="." method="_on_right_body_entered"]
+[connection signal="body_entered" from="left" to="." method="_on_left_body_entered"]
+[connection signal="body_entered" from="up" to="." method="_on_up_body_entered"]

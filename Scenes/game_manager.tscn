@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=7 format=3 uid="uid://ctxhvvde3yib3"]
 
-[ext_resource type="Texture2D" uid="uid://bwxmynjax8la6" path="res://Images/level1.png" id="1_oj352"]
 [ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
+[ext_resource type="Texture2D" uid="uid://cyqih6mh1daqo" path="res://Images/level_1.png" id="2_yqty0"]
 [ext_resource type="PackedScene" uid="uid://ibgy0rqsf1bf" path="res://Scenes/collectable.tscn" id="4_mmt5l"]
 [ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="5_fgdfb"]
+[ext_resource type="PackedScene" uid="uid://dw7wrlmhj82qw" path="res://Scenes/box.tscn" id="6_yqty0"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_sq00h")
@@ -15,20 +16,13 @@ scale = Vector2(5, 5)
 [node name="level1_background" type="Sprite2D" parent="."]
 position = Vector2(0, 3)
 scale = Vector2(5, 5)
-texture = ExtResource("1_oj352")
+texture = ExtResource("2_yqty0")
 
 [node name="dog" parent="." instance=ExtResource("2_e5fcp")]
 position = Vector2(219, 54)
 
-[node name="Borders" type="StaticBody2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders"]
-position = Vector2(-302, -135)
-build_mode = 1
-polygon = PackedVector2Array(-18, 18, -97, 18, -103, 305, 61, 304, 61, 412, 158, 410, 158, 497, 702, 499, 697, 17, 14, 18)
-
 [node name="book" parent="." instance=ExtResource("4_mmt5l")]
-position = Vector2(-181, 317)
+position = Vector2(120, 130)
 
 [node name="Sprite2D" type="Sprite2D" parent="book"]
 texture = ExtResource("5_fgdfb")
@@ -52,3 +46,15 @@ id = 2
 texture = ExtResource("5_fgdfb")
 region_enabled = true
 region_rect = Rect2(69, 20, 6, 8)
+
+[node name="box" parent="." instance=ExtResource("6_yqty0")]
+position = Vector2(2, 136)
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders"]
+position = Vector2(15, -106)
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 354, -2, 354, 332, 294, 331, 299, 439, -130, 437, -131, 345, -221, 347, -218, 242, -381, 245, -380, 2, -285, 2, -283, 62, -206, 63, -206, 94, -110, 93, -111, 56, -69, 56, -31, 55, -37, 0)

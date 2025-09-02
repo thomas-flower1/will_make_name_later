@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://dw7wrlmhj82qw"]
+
+[ext_resource type="Script" uid="uid://dyg8j8eh44fp5" path="res://Scenes/test.gd" id="1_2jyye"]
+[ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="1_xkb4e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkb4e"]
+size = Vector2(13.8, 14.8)
+
+[sub_resource type="GDScript" id="GDScript_ego7h"]
+script/source = "extends Area2D
+
+
+@onready var box: StaticBody2D = $\"..\"
+@onready var right: CollisionShape2D = $right
+
+func _on_body_entered(body: Node2D) -> void:
+	print('ok')
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ego7h"]
+size = Vector2(9.8, 2.6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jyye"]
+size = Vector2(2.3, 10.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6vpp"]
+size = Vector2(9, 2.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3sev"]
+size = Vector2(2.6, 11.2)
+
+[node name="box" type="StaticBody2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_2jyye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.1, 9.53674e-08)
+shape = SubResource("RectangleShape2D_xkb4e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xkb4e")
+region_enabled = true
+region_rect = Rect2(33, 16, 14, 15)
+
+[node name="collisions" type="Area2D" parent="."]
+script = SubResource("GDScript_ego7h")
+
+[node name="bottom" type="CollisionShape2D" parent="collisions"]
+position = Vector2(-0.3, 7.9)
+shape = SubResource("RectangleShape2D_ego7h")
+metadata/id = 0
+
+[node name="left" type="CollisionShape2D" parent="collisions"]
+position = Vector2(-6.6, 0.2)
+shape = SubResource("RectangleShape2D_2jyye")
+metadata/id = 1
+
+[node name="up" type="CollisionShape2D" parent="collisions"]
+position = Vector2(0, -6.8)
+shape = SubResource("RectangleShape2D_y6vpp")
+metadata/id = 2
+
+[node name="right" type="CollisionShape2D" parent="collisions"]
+position = Vector2(6.6, -0.2)
+shape = SubResource("RectangleShape2D_r3sev")
+metadata/id = 3
+
+[connection signal="body_entered" from="collisions" to="." method="_on_area_2d_body_entered"]
