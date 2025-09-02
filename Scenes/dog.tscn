@@ -14,13 +14,19 @@ script/source = "extends CollisionShape2D
 scale = Vector2(5, 5)
 script = ExtResource("1_uny1q")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="left_right" type="Sprite2D" parent="."]
 texture = ExtResource("1_nvlu8")
 region_enabled = true
 region_rect = Rect2(16, 4, 16, 12)
 
+[node name="up_down" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1, 1)
+texture = ExtResource("1_nvlu8")
+region_enabled = true
+region_rect = Rect2(34, 1, 13, 15)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uny1q")
 script = SubResource("GDScript_y1yv2")

@@ -1,15 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=6 format=3 uid="uid://ctxhvvde3yib3"]
 
 [ext_resource type="Texture2D" uid="uid://bwxmynjax8la6" path="res://Images/level1.png" id="1_oj352"]
+[ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5fcp"]
-size = Vector2(20, 809)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq00h"]
-size = Vector2(641.5, 239)
+[ext_resource type="PackedScene" uid="uid://ibgy0rqsf1bf" path="res://Scenes/collectable.tscn" id="4_mmt5l"]
+[ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="5_fgdfb"]
 
 [node name="GameManager" type="Node2D"]
+script = ExtResource("1_sq00h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(5, 5)
@@ -19,26 +17,38 @@ position = Vector2(0, 3)
 scale = Vector2(5, 5)
 texture = ExtResource("1_oj352")
 
-[node name="Borders" type="StaticBody2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-410, -6.5)
-shape = SubResource("RectangleShape2D_e5fcp")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-79.75, -244.5)
-shape = SubResource("RectangleShape2D_sq00h")
-
 [node name="dog" parent="." instance=ExtResource("2_e5fcp")]
 position = Vector2(219, 54)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="Borders" type="StaticBody2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders"]
 position = Vector2(-302, -135)
 build_mode = 1
 polygon = PackedVector2Array(-18, 18, -97, 18, -103, 305, 61, 304, 61, 412, 158, 410, 158, 497, 702, 499, 697, 17, 14, 18)
+
+[node name="book" parent="." instance=ExtResource("4_mmt5l")]
+position = Vector2(-181, 317)
+
+[node name="Sprite2D" type="Sprite2D" parent="book"]
+texture = ExtResource("5_fgdfb")
+region_enabled = true
+region_rect = Rect2(21, 20, 6, 9)
+
+[node name="pencil" parent="." instance=ExtResource("4_mmt5l")]
+position = Vector2(-306, -39)
+id = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="pencil"]
+texture = ExtResource("5_fgdfb")
+region_enabled = true
+region_rect = Rect2(52, 20, 8, 8)
+
+[node name="calc" parent="." instance=ExtResource("4_mmt5l")]
+position = Vector2(240, 273)
+id = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="calc"]
+texture = ExtResource("5_fgdfb")
+region_enabled = true
+region_rect = Rect2(69, 20, 6, 8)

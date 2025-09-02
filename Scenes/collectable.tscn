@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ibgy0rqsf1bf"]
+
+[ext_resource type="Script" uid="uid://iwi4re8upvin" path="res://collectable.gd" id="1_licok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rsma"]
+size = Vector2(8, 8)
+
+[node name="collectable" type="Area2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_licok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9.53674e-08)
+shape = SubResource("RectangleShape2D_3rsma")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
