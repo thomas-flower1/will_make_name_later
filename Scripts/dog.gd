@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 @onready var left_right: Sprite2D = $left_right
 @onready var up_down: Sprite2D = $up_down
+@onready var bed: Area2D = $"../Bed" # the collision to interact with the bed
+@onready var camera_2d: Camera2D = $"../Camera2D"
+
+# checking if the player is currentyl colliding with the bed
+var player_bed_collision: bool = false
 
 func _physics_process(delta: float) -> void:
 	const speed = 500
@@ -37,5 +42,23 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+# called every frame
+func _process(delta: float) -> void:
 	
+	# checking if the player interacts with the bed
+	if player_bed_collision and Input.is_action_just_pressed("Interact"):
+		camera_2d.position.y += 800
+		player_bed_collision = false
+		
 	
+
+# if the character is infront of the bed
+func _on_bed_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_bed_collision = true
+	
+
+
+func _on_bed_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_bed_collision = false

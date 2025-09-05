@@ -22,7 +22,6 @@ region_rect = Rect2(16, 4, 16, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.0999997, 1.90735e-07)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uny1q")
 script = SubResource("GDScript_y1yv2")
 
