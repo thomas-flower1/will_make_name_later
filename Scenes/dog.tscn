@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://1efm72bghyw3"]
+[gd_scene load_steps=6 format=3 uid="uid://1efm72bghyw3"]
 
 [ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="1_nvlu8"]
 [ext_resource type="Script" uid="uid://06a81tcip8gk" path="res://Scripts/dog.gd" id="1_uny1q"]
@@ -10,6 +10,9 @@ size = Vector2(13, 12)
 script/source = "extends CollisionShape2D
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1yv2"]
+size = Vector2(1.8, 1.8)
+
 [node name="dog" type="CharacterBody2D"]
 scale = Vector2(5, 5)
 script = ExtResource("1_uny1q")
@@ -20,12 +23,31 @@ texture = ExtResource("1_nvlu8")
 region_enabled = true
 region_rect = Rect2(16, 4, 16, 12)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Original Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.0999997, 1.90735e-07)
 shape = SubResource("RectangleShape2D_uny1q")
 script = SubResource("GDScript_y1yv2")
 
-[node name="up_down" type="Sprite2D" parent="."]
+[node name="Mini Collision" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y1yv2")
+
+[node name="down" type="Sprite2D" parent="."]
+scale = Vector2(1, 1)
+texture = ExtResource("1_nvlu8")
+region_enabled = true
+region_rect = Rect2(49, 0, 14, 16)
+
+[node name="mini" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("1_nvlu8")
+region_enabled = true
+region_rect = Rect2(69, 5, 6, 6)
+
+[node name="up" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_nvlu8")
 region_enabled = true
 region_rect = Rect2(34, 1, 13, 15)
