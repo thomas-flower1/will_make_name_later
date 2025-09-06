@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=12 format=3 uid="uid://ctxhvvde3yib3"]
 
 [ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
@@ -7,91 +7,126 @@
 [ext_resource type="PackedScene" uid="uid://ibgy0rqsf1bf" path="res://Scenes/collectable.tscn" id="4_mmt5l"]
 [ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="5_fgdfb"]
 [ext_resource type="PackedScene" uid="uid://dw7wrlmhj82qw" path="res://Scenes/box.tscn" id="6_yqty0"]
+[ext_resource type="Texture2D" uid="uid://7wubeki4oyef" path="res://Images/level_1_corridor.png" id="8_efn8y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqty0"]
 size = Vector2(146, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efn8y"]
+size = Vector2(75, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mau"]
+size = Vector2(20, 204)
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_sq00h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(5, 5)
 
-[node name="level1_background" type="Sprite2D" parent="."]
+[node name="dog" parent="." instance=ExtResource("2_e5fcp")]
+z_index = 1
+position = Vector2(316, 86)
+
+[node name="Bedroom" type="Node" parent="."]
+
+[node name="bedroom" type="Sprite2D" parent="Bedroom"]
 position = Vector2(0, 3)
 scale = Vector2(5, 5)
 texture = ExtResource("2_yqty0")
 
-[node name="maze" type="Sprite2D" parent="."]
-position = Vector2(1.14794e-41, 1472)
-scale = Vector2(10, 10)
+[node name="box" parent="Bedroom" instance=ExtResource("6_yqty0")]
+z_index = 1
+position = Vector2(2, 136)
+
+[node name="book" parent="Bedroom" instance=ExtResource("4_mmt5l")]
+position = Vector2(120, 130)
+
+[node name="Sprite2D" type="Sprite2D" parent="Bedroom/book"]
+texture = ExtResource("5_fgdfb")
+region_enabled = true
+region_rect = Rect2(21, 20, 6, 9)
+
+[node name="pencil" parent="Bedroom" instance=ExtResource("4_mmt5l")]
+position = Vector2(-306, -39)
+id = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Bedroom/pencil"]
+texture = ExtResource("5_fgdfb")
+region_enabled = true
+region_rect = Rect2(52, 20, 8, 8)
+
+[node name="Borders" type="StaticBody2D" parent="Bedroom"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bedroom/Borders"]
+position = Vector2(15, -106)
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 354, -2, 354, 332, 294, 331, 299, 439, -136, 439, -135, 353, -228, 350, -226, 254, -377, 258, -380, 2, -285, 2, -283, 62, -206, 63, -206, 94, -110, 93, -111, 56, -69, 56, -31, 55, -37, 0)
+
+[node name="Bed" type="Area2D" parent="Bedroom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom/Bed"]
+position = Vector2(-285, 141)
+shape = SubResource("RectangleShape2D_yqty0")
+
+[node name="door collision" type="Area2D" parent="Bedroom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom/door collision"]
+position = Vector2(280.5, -112)
+shape = SubResource("RectangleShape2D_efn8y")
+
+[node name="maze" type="Node" parent="."]
+
+[node name="maze" type="Sprite2D" parent="maze"]
+position = Vector2(1.52588e-05, 880)
+scale = Vector2(5, 5)
 texture = ExtResource("3_71d4j")
 
-[node name="dog" parent="." instance=ExtResource("2_e5fcp")]
-position = Vector2(219, 54)
+[node name="maze collisions" type="StaticBody2D" parent="maze"]
+position = Vector2(-187, 376)
+scale = Vector2(0.5, 0.5)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-376, 464)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="maze/maze collisions"]
 position = Vector2(-368, 344)
 scale = Vector2(2, 2)
 build_mode = 1
 polygon = PackedVector2Array(-4, -4, -4, 76, 4, 76, 4, 84, -4, 84, -4, 268, 40, 268, 40, 76, 48, 76, 48, 312, 40, 312, 40, 280, -4, 280, -4, 668, 40, 668, 40, 560, 48, 560, 48, 668, 144, 668, 144, 656, 156, 656, 156, 668, 248, 668, 248, 656, 260, 656, 260, 668, 320, 668, 320, 556, 200, 556, 200, 516, 208, 516, 208, 544, 328, 544, 328, 668, 752, 668, 752, 560, 712, 560, 712, 492, 752, 492, 752, 444, 648, 444, 648, 360, 676, 360, 676, 368, 656, 368, 656, 436, 752, 436, 752, 368, 724, 368, 724, 360, 752, 360, 752, 320, 600, 320, 600, 492, 664, 492, 664, 620, 704, 620, 704, 628, 380, 628, 380, 544, 484, 544, 484, 396, 408, 396, 408, 440, 440, 440, 440, 448, 268, 448, 268, 488, 440, 488, 440, 500, 256, 500, 256, 468, 168, 468, 168, 600, 276, 600, 276, 608, 208, 608, 208, 624, 200, 624, 200, 608, 100, 608, 100, 624, 88, 624, 88, 600, 160, 600, 160, 468, 104, 468, 104, 416, 116, 416, 116, 460, 256, 460, 256, 440, 400, 440, 400, 396, 320, 396, 320, 328, 248, 328, 248, 384, 272, 384, 272, 396, 240, 396, 240, 320, 296, 320, 296, 240, 448, 240, 448, 328, 476, 328, 476, 340, 440, 340, 440, 248, 356, 248, 356, 276, 344, 276, 344, 248, 304, 248, 304, 320, 396, 320, 396, 340, 384, 340, 384, 328, 328, 328, 328, 384, 488, 384, 488, 556, 384, 556, 384, 620, 428, 620, 428, 600, 440, 600, 440, 620, 544, 620, 544, 600, 556, 600, 556, 620, 600, 620, 600, 556, 536, 556, 536, 340, 520, 340, 520, 288, 496, 288, 496, 196, 216, 196, 216, 104, 104, 104, 104, 144, 168, 144, 168, 196, 160, 196, 160, 156, 96, 156, 96, 40, 116, 40, 116, 48, 104, 48, 104, 96, 160, 96, 160, 40, 168, 40, 168, 96, 216, 96, 216, 80, 296, 80, 296, 40, 476, 40, 476, 48, 356, 48, 356, 156, 280, 156, 280, 128, 288, 128, 288, 144, 344, 144, 344, 48, 304, 48, 304, 88, 224, 88, 224, 144, 236, 144, 236, 156, 224, 156, 224, 184, 402.551, 184, 528, 184, 532, 260, 576, 260, 576, 240, 584, 240, 584, 260, 696, 260, 696, 140, 584, 140, 584, 192, 576, 192, 576, 140, 400, 140, 400, 96, 472, 96, 472, 104, 408, 104, 408, 128, 696, 128, 696, 48, 520, 48, 520, 40, 704, 40, 704, 268, 528, 268, 528, 328, 544, 328, 544, 544, 608, 544, 612, 620, 656, 620, 656, 500, 588, 500, 592, 312, 752, 312, 752, -4, 252, -4, 252, 32, 244, 32, 244, -4, 48, -4, 48, 28, 40, 28, 40, -4)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="maze/maze collisions"]
 position = Vector2(-288, 1064)
 build_mode = 1
 polygon = PackedVector2Array(0, 0, 0, 312, 96, 312, 96, 400, 152, 400, 152, 376, 120, 376, 120, 312, 152, 312, 152, 288, 16, 288, 16, 216, 40, 216, 40, 200, 16, 200, 16, 16, 240, 16, 240, 112, 256, 112, 256, 16, 312, 16, 312, 0)
 
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="maze/maze collisions"]
 position = Vector2(-176, 744)
 build_mode = 1
 polygon = PackedVector2Array(0, 0, 0, 224, 192, 224, 192, 104, 288, 104, 288, 152, 304, 152, 304, 80, 128, 80, 128, 104, 176, 104, 176, 208, 16, 208, 16, 16, 40, 16, 40, 0)
 
-[node name="book" parent="." instance=ExtResource("4_mmt5l")]
-position = Vector2(120, 130)
+[node name="corridor" type="Node" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="book"]
-texture = ExtResource("5_fgdfb")
-region_enabled = true
-region_rect = Rect2(21, 20, 6, 9)
+[node name="back_to_bedroom" type="Area2D" parent="corridor"]
 
-[node name="pencil" parent="." instance=ExtResource("4_mmt5l")]
-position = Vector2(-306, -39)
-id = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="corridor/back_to_bedroom"]
+position = Vector2(627, 93)
+shape = SubResource("RectangleShape2D_i4mau")
 
-[node name="Sprite2D" type="Sprite2D" parent="pencil"]
-texture = ExtResource("5_fgdfb")
-region_enabled = true
-region_rect = Rect2(52, 20, 8, 8)
+[node name="StaticBody2D" type="StaticBody2D" parent="corridor"]
+position = Vector2(1026, -15)
+scale = Vector2(5, 5)
 
-[node name="calc" parent="." instance=ExtResource("4_mmt5l")]
-position = Vector2(240, 273)
-id = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="calc"]
-texture = ExtResource("5_fgdfb")
-region_enabled = true
-region_rect = Rect2(69, 20, 6, 8)
-
-[node name="box" parent="." instance=ExtResource("6_yqty0")]
-position = Vector2(2, 136)
-
-[node name="Borders" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders"]
-position = Vector2(15, -106)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="corridor/StaticBody2D"]
+position = Vector2(-79.4, 0.8)
 build_mode = 1
-polygon = PackedVector2Array(0, 0, 354, -2, 354, 332, 294, 331, 299, 439, -136, 439, -135, 353, -228, 350, -226, 254, -377, 258, -380, 2, -285, 2, -283, 62, -206, 63, -206, 94, -110, 93, -111, 56, -69, 56, -31, 55, -37, 0)
+polygon = PackedVector2Array(-5.8, -0.6, 154.8, 0, 154.8, 41.6, -6, 41.8)
 
-[node name="Bed" type="Area2D" parent="."]
+[node name="corridor" type="Sprite2D" parent="corridor"]
+position = Vector2(1026, -15)
+scale = Vector2(5, 5)
+texture = ExtResource("8_efn8y")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed"]
-position = Vector2(-285, 141)
-shape = SubResource("RectangleShape2D_yqty0")
-
-[connection signal="body_entered" from="Bed" to="dog" method="_on_bed_body_entered"]
-[connection signal="body_exited" from="Bed" to="dog" method="_on_bed_body_exited"]
+[connection signal="body_entered" from="Bedroom/Bed" to="dog" method="_on_bed_body_entered"]
+[connection signal="body_exited" from="Bedroom/Bed" to="dog" method="_on_bed_body_exited"]
+[connection signal="body_entered" from="Bedroom/door collision" to="dog" method="_on_door_collision_body_entered"]
+[connection signal="body_exited" from="Bedroom/door collision" to="dog" method="_on_door_collision_body_exited"]
+[connection signal="body_entered" from="corridor/back_to_bedroom" to="dog" method="_on_back_to_bedroom_body_entered"]

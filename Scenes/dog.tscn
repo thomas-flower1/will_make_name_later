@@ -11,7 +11,7 @@ script/source = "extends CollisionShape2D
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1yv2"]
-size = Vector2(1.8, 1.8)
+size = Vector2(7.6, 8)
 
 [node name="dog" type="CharacterBody2D"]
 scale = Vector2(5, 5)
@@ -24,14 +24,9 @@ region_enabled = true
 region_rect = Rect2(16, 4, 16, 12)
 
 [node name="Original Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.0999997, 1.90735e-07)
 shape = SubResource("RectangleShape2D_uny1q")
 script = SubResource("GDScript_y1yv2")
-
-[node name="Mini Collision" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_y1yv2")
 
 [node name="down" type="Sprite2D" parent="."]
 scale = Vector2(1, 1)
@@ -41,10 +36,15 @@ region_rect = Rect2(49, 0, 14, 16)
 
 [node name="mini" type="Sprite2D" parent="."]
 visible = false
-scale = Vector2(2, 2)
 texture = ExtResource("1_nvlu8")
 region_enabled = true
 region_rect = Rect2(69, 5, 6, 6)
+
+[node name="Mini Collision" type="CollisionShape2D" parent="."]
+position = Vector2(1.90735e-07, 1.90735e-07)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_y1yv2")
+disabled = true
 
 [node name="up" type="Sprite2D" parent="."]
 visible = false

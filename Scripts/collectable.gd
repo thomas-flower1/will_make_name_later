@@ -1,6 +1,7 @@
 extends Area2D
 @export var id: int = 0 # will be used to determine what object it is
-@onready var game_manager: Node2D = $".."
+@onready var game_manager: Node2D = $"../.."
+
 
 
 func _on_body_entered(body: Node2D) -> void:
