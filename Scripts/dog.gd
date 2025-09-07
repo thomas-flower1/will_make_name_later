@@ -23,6 +23,19 @@ var player_bed_collision: bool = false
 
 # checking if the player is colliding the with door
 var player_door_collision: bool = false
+@onready var corner: Sprite2D = $"../corner/corner"
+
+
+# corridor
+@onready var corridor: Sprite2D = $"../corridor/corridor"
+
+# kitchen
+@onready var kitchen: Sprite2D = $"../kitchen/kitchen"
+
+
+
+
+
 
 # checking if the player collides with the clock collision
 var player_clock_collision: bool = false
@@ -99,9 +112,10 @@ func _process(delta: float) -> void:
 	
 	# checking if the player interacts with the door
 	elif player_door_collision and Input.is_action_just_pressed("Interact"):
-		camera.position.x = 1026
-		position.x = 712
-		position.y = 88
+		camera.position.x = corner.position.x
+		camera.position.y = corner.position.y
+		position.x = -155
+		position.y = -596
 		
 	elif player_clock_collision and Input.is_action_just_pressed("Interact"):
 		clock.visible = true
@@ -150,3 +164,27 @@ func _on_collision_body_entered(body: Node2D) -> void:
 func _on_collision_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		player_clock_collision = false
+
+
+func _on_to_corridor_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = corridor.position
+		position.x = 872
+
+
+func _on_back_to_corner_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = corner.position
+		position.x = 320
+
+
+func _on_to_kitchen_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = kitchen.position
+		position.x = 2176
+
+
+func _on_back_to_corridor_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = corridor.position
+		position.x = 1512
