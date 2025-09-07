@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://1efm72bghyw3"]
 
-[ext_resource type="Texture2D" uid="uid://b16kwxibrcebp" path="res://Images/sprites.png" id="1_nvlu8"]
+[ext_resource type="Texture2D" uid="uid://cxvm545g5waya" path="res://Images/sprites.png" id="1_nvlu8"]
 [ext_resource type="Script" uid="uid://06a81tcip8gk" path="res://Scripts/dog.gd" id="1_uny1q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uny1q"]
@@ -29,7 +29,6 @@ shape = SubResource("RectangleShape2D_uny1q")
 script = SubResource("GDScript_y1yv2")
 
 [node name="down" type="Sprite2D" parent="."]
-scale = Vector2(1, 1)
 texture = ExtResource("1_nvlu8")
 region_enabled = true
 region_rect = Rect2(49, 0, 14, 16)

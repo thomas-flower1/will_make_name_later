@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var game_manager: Node2D = $".."
 @onready var bed: Area2D = $"../Bed" # the collision to interact with the bed
 @onready var camera: Camera2D = $"../Camera2D"
+@onready var clock: Sprite2D = $"../clock/clock"
 
 
 # collisions
@@ -16,11 +17,15 @@ extends CharacterBody2D
 @onready var mini_collision: CollisionShape2D = $"Mini Collision"
 
 
+
 # checking if the player is currentyl colliding with the bed
 var player_bed_collision: bool = false
 
 # checking if the player is colliding the with door
 var player_door_collision: bool = false
+
+# checking if the player collides with the clock collision
+var player_clock_collision: bool = false
 
 func _physics_process(delta: float) -> void:
 	var speed = 500
@@ -98,6 +103,10 @@ func _process(delta: float) -> void:
 		position.x = 712
 		position.y = 88
 		
+	elif player_clock_collision and Input.is_action_just_pressed("Interact"):
+		clock.visible = true
+		
+		
 		
 	
 
@@ -129,3 +138,15 @@ func _on_back_to_bedroom_body_entered(body: Node2D) -> void:
 	position.y = -73
 	camera.position.x = 0
 	camera.position.y = 0
+
+
+
+# if the player enters the place with the clock
+func _on_collision_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_clock_collision = true
+
+
+func _on_collision_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_clock_collision = false
