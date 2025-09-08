@@ -23,24 +23,23 @@ extends CharacterBody2D
 # checking if the player is currentyl colliding with the bed
 var player_bed_collision: bool = false
 
-# checking if the player is colliding the with door
-var player_door_collision: bool = false
+# checking if the player collides with the clock collision
+var player_clock_collision: bool = false
+
+
+# ALL ROOM SPRITES
+@onready var bedroom: Sprite2D = $"../bedroom/bedroom"
 @onready var corner: Sprite2D = $"../corner/corner"
-
-
-# corridor
+@onready var entrance: Sprite2D = $"../entrance/entrance"
 @onready var corridor: Sprite2D = $"../corridor/corridor"
-
-# kitchen
+@onready var bathroom: Sprite2D = $"../bathroom/bathroom"
+@onready var living_room: Sprite2D = $"../living room/living_room"
 @onready var kitchen: Sprite2D = $"../kitchen/kitchen"
-
-# garden
 @onready var garden: Sprite2D = $"../garden/garden"
 
 
 
-# checking if the player collides with the clock collision
-var player_clock_collision: bool = false
+
 
 func _physics_process(delta: float) -> void:
 	var speed = 500
@@ -132,14 +131,6 @@ func _process(delta: float) -> void:
 		# move the player to the maze
 		position.x = -357
 		position.y = 1196
-	
-	# checking if the player interacts with the door
-	elif player_door_collision and Input.is_action_just_pressed("Interact"):
-		camera.position.x = corner.position.x
-		camera.position.y = corner.position.y
-
-		position.x = -160
-		position.y = -624
 		
 	elif player_clock_collision and Input.is_action_just_pressed("Interact"):
 		clock.visible = true
@@ -157,68 +148,89 @@ func _on_bed_body_exited(body: Node2D) -> void:
 		player_bed_collision = false
 
 
-# if the player collides with the door
-func _on_door_collision_body_entered(body: Node2D) -> void:
+# MOVING BETWEEN THE ROOMS
+func _on_to_corner_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		player_door_collision = true
-
-
-func _on_door_collision_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		player_door_collision = false
-
+		camera.position = corner.position
+		position.x = -160
+		position.y = -708
 
 func _on_back_to_bedroom_body_entered(body: Node2D) -> void:
-	position.x = 281
-	position.y = -73
-	camera.position.x = 0
-	camera.position.y = 0
-
-# if the player enters the place with the clock
-func _on_collision_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		player_clock_collision = true
+		camera.position = bedroom.position
+		position.x = 280
+		position.y = -56
 
 
-func _on_collision_body_exited(body: Node2D) -> void:
+func _on_to_entrance_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		player_clock_collision = false
+		camera.position = entrance.position
+		position.x = 888
 
+func _on_to_corridor_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = corridor.position
+		position.x = 2072
 
 
 func _on_back_to_corner_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = corner.position
-		position.x = 320
+		position.x = 336
+
+
+func _on_back_to_entrance_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = entrance.position
+		position.x = 1526
+
+
+
+func _on_to_living_room_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = living_room.position
+		position.x = 2312
+		position.y = -1704
+		
+
+
+func _on_to_bathroom_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = bathroom.position
+		position.x = 2440
+		position.y = -168
 
 
 func _on_to_kitchen_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = kitchen.position
-		position.x = 2176
+		position.x = 3280
 
 
 func _on_back_to_corridor_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = corridor.position
-		position.x = 1512
+		position.x = 2640
+		position.y = -704
 
-
-
-func _on_to_corridor_body_entered(body: Node2D) -> void:
+func _on_back_to_corridor_2_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = corridor.position
-		position.x = 872
+		position.x = 2640
+		position.y = -1192
 
+func _on_back_to_corridor_3_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = corridor.position
+		position.x = 2736
 
 func _on_to_garden_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = garden.position
-		position.y = -160
-
-
+		position.y = -152
+		
+		
 func _on_back_to_kitchen_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = kitchen.position
-		position.y = -624
-		
+		position.y = -688
