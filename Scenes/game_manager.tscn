@@ -2,26 +2,22 @@
 
 [ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
-[ext_resource type="Texture2D" uid="uid://8v2jajsro6ol" path="res://Images/level_1.png" id="2_yqty0"]
 [ext_resource type="Texture2D" uid="uid://sn8wlbubtsox" path="res://Images/maze.png" id="3_71d4j"]
-[ext_resource type="PackedScene" uid="uid://ibgy0rqsf1bf" path="res://Scenes/collectable.tscn" id="4_mmt5l"]
-[ext_resource type="Texture2D" uid="uid://bfwwrkcgv1gop" path="res://Images/sprites.png" id="5_fgdfb"]
+[ext_resource type="Texture2D" uid="uid://bmhau3iihq66c" path="res://Images/bedroom.png" id="3_y8n5u"]
+[ext_resource type="Texture2D" uid="uid://dpxemiw35fcsc" path="res://Images/entrance.png" id="6_sm5re"]
 [ext_resource type="PackedScene" uid="uid://dw7wrlmhj82qw" path="res://Scenes/box.tscn" id="6_yqty0"]
-[ext_resource type="Texture2D" uid="uid://d3c4nl6gv86u6" path="res://Images/level_1_corridor.png" id="8_efn8y"]
 [ext_resource type="Texture2D" uid="uid://my5ovwrsaygh" path="res://Images/numbers.png" id="9_b5cn8"]
 [ext_resource type="Texture2D" uid="uid://bf5muymghedem" path="res://Images/clock.png" id="9_i4mau"]
 [ext_resource type="Texture2D" uid="uid://m7e88gjyrhq4" path="res://Images/corner.png" id="9_jencv"]
+[ext_resource type="Texture2D" uid="uid://6flk6e6c03sc" path="res://Images/parents_bedroom.png" id="12_hjqsb"]
 [ext_resource type="Texture2D" uid="uid://b7sowrwixu1x1" path="res://Images/kitchen.png" id="12_kmrvs"]
 [ext_resource type="Texture2D" uid="uid://dm54yuhmqc3s" path="res://Images/garden.png" id="13_e6ru4"]
 [ext_resource type="Texture2D" uid="uid://bmh1juqxu3nu4" path="res://Images/living_room.png" id="14_hjqsb"]
 [ext_resource type="Texture2D" uid="uid://blbpiq22swsal" path="res://Images/bathroom.png" id="15_y8n5u"]
 [ext_resource type="Texture2D" uid="uid://dexkdresjht52" path="res://Images/corridor2.png" id="16_y8n5u"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqty0"]
-size = Vector2(146, 20)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efn8y"]
-size = Vector2(75, 34)
+size = Vector2(64, 52.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mau"]
 size = Vector2(216, 11)
@@ -34,6 +30,9 @@ size = Vector2(21.5, 216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sm5re"]
 size = Vector2(32, 232)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2ahw"]
+size = Vector2(160, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu5vk"]
 size = Vector2(3.20001, 43.2)
@@ -48,7 +47,7 @@ size = Vector2(144, 16)
 size = Vector2(32, 220)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uj5f7"]
-size = Vector2(82, 42)
+size = Vector2(73, 42)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v2ahw"]
 
@@ -56,13 +55,16 @@ size = Vector2(82, 42)
 size = Vector2(144, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hjqsb"]
-size = Vector2(24, 298)
+size = Vector2(24, 240)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8n5u"]
 size = Vector2(144, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5tjy5"]
 size = Vector2(14.4, 5.6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yanw6"]
+size = Vector2(72, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jencv"]
 size = Vector2(108, 54)
@@ -79,52 +81,26 @@ z_index = 2
 
 [node name="bedroom" type="Sprite2D" parent="bedroom"]
 scale = Vector2(5, 5)
-texture = ExtResource("2_yqty0")
+texture = ExtResource("3_y8n5u")
 
 [node name="box" parent="bedroom" instance=ExtResource("6_yqty0")]
-visible = false
 z_index = 1
-position = Vector2(2, 136)
-
-[node name="book" parent="bedroom" instance=ExtResource("4_mmt5l")]
-visible = false
-position = Vector2(120, 130)
-
-[node name="Sprite2D" type="Sprite2D" parent="bedroom/book"]
-texture = ExtResource("5_fgdfb")
-region_enabled = true
-region_rect = Rect2(21, 20, 6, 9)
-
-[node name="pencil" parent="bedroom" instance=ExtResource("4_mmt5l")]
-visible = false
-position = Vector2(-306, -39)
-id = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="bedroom/pencil"]
-texture = ExtResource("5_fgdfb")
-region_enabled = true
-region_rect = Rect2(52, 20, 8, 8)
+position = Vector2(504, -24)
 
 [node name="Borders" type="StaticBody2D" parent="bedroom"]
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bedroom/Borders"]
-position = Vector2(17, -108)
+position = Vector2(-376, -80)
 build_mode = 1
-polygon = PackedVector2Array(353, -38, 354, 332, 294, 331, 299, 439, -136, 439, -135, 353, -231, 354, -231, 258, -377, 258, -380, 2, -285, 2, -283, 62, -206, 63, -206, 94, -110, 93, -111, 56, -69, 56, -47, 58, -47, -38)
-
-[node name="Bed" type="Area2D" parent="bedroom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/Bed"]
-position = Vector2(-285, 141)
-shape = SubResource("RectangleShape2D_yqty0")
+polygon = PackedVector2Array(0, 0, 232, 0, 232, 56, 328, 56, 328, 0, 416, 0, 416, -48, 600, -48, 600, -64, 704, -64, 704, -48, 760, -48, 760, 144, 720, 144, 720, 112, 664, 112, 664, 224, 576, 224, 536, 224, 536, 400, 216, 400, 216, 264, 120, 264, 120, 128, 0, 128)
 
 [node name="to_corner" type="Area2D" parent="bedroom"]
 z_index = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/to_corner"]
-position = Vector2(280.5, -105)
+position = Vector2(280, -130.125)
 shape = SubResource("RectangleShape2D_efn8y")
 
 [node name="corner" type="Node2D" parent="."]
@@ -141,7 +117,7 @@ scale = Vector2(5, 5)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="corner/collision"]
 position = Vector2(-55.2, -16.8)
 build_mode = 1
-polygon = PackedVector2Array(0, -7.8, 80, -7.8, 80, 6.59999, 96, 6.59999, 96, -7.8, 142.4, -7.8, 142.8, 46, 45.8, 46.2, 46.4, 78.6, -0.399998, 78.8)
+polygon = PackedVector2Array(0.799999, 8, 18.4, 8, 18.4, -8, 142.4, -7.8, 142.8, 46, 45.8, 46.2, 46.4, 78.6, -0.399998, 78.8)
 
 [node name="back_to_bedroom" type="Area2D" parent="corner"]
 
@@ -160,7 +136,7 @@ shape = SubResource("RectangleShape2D_kmrvs")
 [node name="entrance" type="Sprite2D" parent="entrance"]
 position = Vector2(1200, -1000)
 scale = Vector2(5, 5)
-texture = ExtResource("8_efn8y")
+texture = ExtResource("6_sm5re")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="entrance"]
 position = Vector2(1026, -15)
@@ -169,7 +145,7 @@ scale = Vector2(5, 5)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="entrance/StaticBody2D"]
 position = Vector2(-40.4, -203.4)
 build_mode = 1
-polygon = PackedVector2Array(-6.39999, 0, 166.4, 0, 166.4, 52.8, -6.39999, 52.8)
+polygon = PackedVector2Array(-6.39999, 0, 166.4, 0, 166.4, 52.8, 123.2, 52.8, 123.2, 81.6, 91.2, 81.6, 91.2, 52.8, -6.39999, 52.8)
 
 [node name="to_corridor" type="Area2D" parent="entrance"]
 
@@ -182,6 +158,12 @@ shape = SubResource("RectangleShape2D_e6ru4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="entrance/back_to_corner"]
 position = Vector2(800, -880)
 shape = SubResource("RectangleShape2D_sm5re")
+
+[node name="to_parents_bedroom" type="Area2D" parent="entrance"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="entrance/to_parents_bedroom"]
+position = Vector2(1360, -640)
+shape = SubResource("RectangleShape2D_v2ahw")
 
 [node name="corridor" type="Node2D" parent="."]
 
@@ -206,7 +188,6 @@ scale = Vector2(5, 5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="corridor/back_to_entrance"]
 z_index = 1
 position = Vector2(-80, 23.2)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_iu5vk")
 
 [node name="to_living_room" type="Area2D" parent="corridor"]
@@ -239,7 +220,7 @@ texture = ExtResource("15_y8n5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bathroom/back_to_corridor"]
 z_index = 1
-position = Vector2(2440, -211)
+position = Vector2(2603.5, -216)
 shape = SubResource("RectangleShape2D_uj5f7")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="bathroom"]
@@ -248,8 +229,9 @@ position = Vector2(2320, -232)
 physics_material_override = SubResource("PhysicsMaterial_v2ahw")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bathroom/StaticBody2D"]
+position = Vector2(168, 8)
 build_mode = 1
-polygon = PackedVector2Array(0, 0, 232, 0, 232, 112, 160, 112, 160, 272, 232, 272, 232, 328, -80, 328, -80, 272, 0, 272)
+polygon = PackedVector2Array(72, 0, 72, -16, 160, -16, 160, 0, 232, 0, 232, 80, 160, 80, 160, 168, 232, 168, 232, 232, 160, 232, 160, 320, 0, 320, 0, 0)
 
 [node name="living room" type="Node2D" parent="."]
 
@@ -265,17 +247,7 @@ scale = Vector2(5, 5)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="living room/StaticBody2D"]
 position = Vector2(-80, -32)
 build_mode = 1
-polygon = PackedVector2Array(0, -1.60001, 56, -1.60001, 56, 14.4, 88, 14.4, 88, -1.60001, 124.8, -1.60001, 124.8, 19.2, 158.4, 19.2, 158.4, 102.4, 80, 102.4, 80, 115.2, 48, 115.2, 48, 102.4, 1.60001, 102.4)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="living room/StaticBody2D"]
-position = Vector2(-32, 6.4)
-build_mode = 1
-polygon = PackedVector2Array(0, 0, 48, 0, 48, 20.8, 0, 20.8)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="living room/StaticBody2D"]
-position = Vector2(19.2, -17.6)
-build_mode = 1
-polygon = PackedVector2Array(0, 0, 14.4, 0, 14.4, 20.8, 0, 20.8)
+polygon = PackedVector2Array(3.20001, 8, 102.4, 8, 102.4, 16, 158.4, 16, 158.4, 102.4, 80, 102.4, 80, 115.2, 48, 115.2, 48, 102.4, 1.60001, 102.4)
 
 [node name="back_to_corridor2" type="Area2D" parent="living room"]
 
@@ -305,7 +277,7 @@ polygon = PackedVector2Array(0, 0, 24, 0, 24, -40, 96, -40, 96, 8, 152, 8, 152, 
 [node name="back_to_corridor3" type="Area2D" parent="kitchen"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kitchen/back_to_corridor3"]
-position = Vector2(3192, -877)
+position = Vector2(3192, -888)
 shape = SubResource("RectangleShape2D_hjqsb")
 
 [node name="to_garden" type="Area2D" parent="kitchen"]
@@ -328,7 +300,6 @@ scale = Vector2(5, 5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="garden/back_to_kitchen"]
 z_index = 1
 position = Vector2(260, -40)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5tjy5")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="garden"]
@@ -338,7 +309,28 @@ position = Vector2(3200, -224)
 build_mode = 1
 polygon = PackedVector2Array(0, 0, 536, 0, 536, 24, 560, 24, 560, 8, 640, 8, 640, 24, 656, 24, 656, 8, 800, 8, 800, 584, 0, 584)
 
+[node name="parent_bedroom" type="Node2D" parent="."]
+
+[node name="parents_bedroom" type="Sprite2D" parent="parent_bedroom"]
+position = Vector2(1200, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("12_hjqsb")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="parent_bedroom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="parent_bedroom/StaticBody2D"]
+position = Vector2(824, -80)
+build_mode = 1
+polygon = PackedVector2Array(0, -8, 144, -8, 144, 104, 304, 104, 304, -24, 400, -24, 400, -72, 744, -72, 744, 136, 664, 136, 664, 408, 112, 408, 112, 240, 0, 240)
+
+[node name="back_to_entrance2" type="Area2D" parent="parent_bedroom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parent_bedroom/back_to_entrance2"]
+position = Vector2(1368, -120)
+shape = SubResource("RectangleShape2D_yanw6")
+
 [node name="clock" type="Node2D" parent="."]
+visible = false
 
 [node name="one" type="Sprite2D" parent="clock"]
 visible = false
@@ -392,6 +384,7 @@ polygon = PackedVector2Array(0, 0, 0, 224, 192, 224, 192, 104, 288, 104, 288, 15
 [connection signal="body_entered" from="corner/to_entrance" to="dog" method="_on_to_entrance_body_entered"]
 [connection signal="body_entered" from="entrance/to_corridor" to="dog" method="_on_to_corridor_body_entered"]
 [connection signal="body_entered" from="entrance/back_to_corner" to="dog" method="_on_back_to_corner_body_entered"]
+[connection signal="body_entered" from="entrance/to_parents_bedroom" to="dog" method="_on_to_parents_bedroom_body_entered"]
 [connection signal="body_entered" from="corridor/back_to_entrance" to="dog" method="_on_back_to_entrance_body_entered"]
 [connection signal="body_entered" from="corridor/to_living_room" to="dog" method="_on_to_living_room_body_entered"]
 [connection signal="body_entered" from="corridor/to_bathroom" to="dog" method="_on_to_bathroom_body_entered"]
@@ -401,3 +394,4 @@ polygon = PackedVector2Array(0, 0, 0, 224, 192, 224, 192, 104, 288, 104, 288, 15
 [connection signal="body_entered" from="kitchen/back_to_corridor3" to="dog" method="_on_back_to_corridor_3_body_entered"]
 [connection signal="body_entered" from="kitchen/to_garden" to="dog" method="_on_to_garden_body_entered"]
 [connection signal="body_entered" from="garden/back_to_kitchen" to="dog" method="_on_back_to_kitchen_body_entered"]
+[connection signal="body_entered" from="parent_bedroom/back_to_entrance2" to="dog" method="_on_back_to_entrance_2_body_entered"]

@@ -36,6 +36,7 @@ var player_clock_collision: bool = false
 @onready var living_room: Sprite2D = $"../living room/living_room"
 @onready var kitchen: Sprite2D = $"../kitchen/kitchen"
 @onready var garden: Sprite2D = $"../garden/garden"
+@onready var parents_bedroom: Sprite2D = $"../parent_bedroom/parents_bedroom"
 
 
 
@@ -197,7 +198,7 @@ func _on_to_living_room_body_entered(body: Node2D) -> void:
 func _on_to_bathroom_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = bathroom.position
-		position.x = 2440
+		position.x = 2600
 		position.y = -168
 
 
@@ -234,3 +235,16 @@ func _on_back_to_kitchen_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = kitchen.position
 		position.y = -688
+
+
+func _on_to_parents_bedroom_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = parents_bedroom.position
+		position.y = -56
+		
+
+
+func _on_back_to_entrance_2_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = entrance.position
+		position.y = -712

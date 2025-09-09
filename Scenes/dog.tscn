@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://06a81tcip8gk" path="res://Scripts/dog.gd" id="1_uny1q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uny1q"]
-size = Vector2(13, 12)
+size = Vector2(15.6, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1yv2"]
 size = Vector2(7.6, 8)
@@ -130,7 +130,7 @@ script = ExtResource("1_uny1q")
 
 [node name="Original Collision" type="CollisionShape2D" parent="."]
 z_index = 5
-position = Vector2(-7.45058e-09, 1.6)
+position = Vector2(0.2, 1.6)
 shape = SubResource("RectangleShape2D_uny1q")
 
 [node name="mini" type="Sprite2D" parent="."]
@@ -152,22 +152,19 @@ disabled = true
 [node name="stationary" type="AnimatedSprite2D" parent="sprites"]
 visible = false
 z_index = 2
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_wkkfr")
 autoplay = "default"
 frame_progress = 0.630436
 
 [node name="left_right" type="AnimatedSprite2D" parent="sprites"]
-visible = false
 z_index = 2
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_usue5")
 autoplay = "default"
 frame_progress = 0.210775
 
 [node name="down" type="AnimatedSprite2D" parent="sprites"]
+visible = false
 z_index = 2
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_sy2b1")
 autoplay = "default"
 frame_progress = 0.643985
@@ -175,7 +172,6 @@ frame_progress = 0.643985
 [node name="up" type="AnimatedSprite2D" parent="sprites"]
 visible = false
 z_index = 2
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_dam1u")
 autoplay = "default"
 frame_progress = 0.963846

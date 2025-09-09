@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3c4nl6gv86u6"
-path="res://.godot/imported/level_1_corridor.png-a7e8e3b0c63f3afda19e9bb560d89f5c.ctex"
+uid="uid://bmhau3iihq66c"
+path="res://.godot/imported/bedroom.png-b26e5d0f388ee8dff4e742d0bb0f8078.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/level_1_corridor.png"
-dest_files=["res://.godot/imported/level_1_corridor.png-a7e8e3b0c63f3afda19e9bb560d89f5c.ctex"]
+source_file="res://Images/bedroom.png"
+dest_files=["res://.godot/imported/bedroom.png-b26e5d0f388ee8dff4e742d0bb0f8078.ctex"]
 
 [params]
 
