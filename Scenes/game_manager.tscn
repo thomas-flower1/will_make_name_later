@@ -1,11 +1,12 @@
-[gd_scene load_steps=34 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=45 format=3 uid="uid://ctxhvvde3yib3"]
 
 [ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
 [ext_resource type="Texture2D" uid="uid://sn8wlbubtsox" path="res://Images/maze.png" id="3_71d4j"]
+[ext_resource type="Script" uid="uid://bur1nt1c2n3oi" path="res://Scripts/bedroom.gd" id="3_88ybb"]
 [ext_resource type="Texture2D" uid="uid://bmhau3iihq66c" path="res://Images/bedroom.png" id="3_y8n5u"]
+[ext_resource type="Texture2D" uid="uid://bfwwrkcgv1gop" path="res://Images/sprites.png" id="5_iu5vk"]
 [ext_resource type="Texture2D" uid="uid://dpxemiw35fcsc" path="res://Images/entrance.png" id="6_sm5re"]
-[ext_resource type="PackedScene" uid="uid://dw7wrlmhj82qw" path="res://Scenes/box.tscn" id="6_yqty0"]
 [ext_resource type="Texture2D" uid="uid://my5ovwrsaygh" path="res://Images/numbers.png" id="9_b5cn8"]
 [ext_resource type="Texture2D" uid="uid://bf5muymghedem" path="res://Images/clock.png" id="9_i4mau"]
 [ext_resource type="Texture2D" uid="uid://m7e88gjyrhq4" path="res://Images/corner.png" id="9_jencv"]
@@ -14,10 +15,43 @@
 [ext_resource type="Texture2D" uid="uid://dm54yuhmqc3s" path="res://Images/garden.png" id="13_e6ru4"]
 [ext_resource type="Texture2D" uid="uid://bmh1juqxu3nu4" path="res://Images/living_room.png" id="14_hjqsb"]
 [ext_resource type="Texture2D" uid="uid://blbpiq22swsal" path="res://Images/bathroom.png" id="15_y8n5u"]
+[ext_resource type="Texture2D" uid="uid://5ld1wli3uk35" path="res://Images/porch.png" id="16_5tjy5"]
+[ext_resource type="Texture2D" uid="uid://5ths68nuq8jr" path="res://Images/garden4.png" id="16_iu5vk"]
 [ext_resource type="Texture2D" uid="uid://dexkdresjht52" path="res://Images/corridor2.png" id="16_y8n5u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efn8y"]
 size = Vector2(64, 52.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ip8e4"]
+size = Vector2(14.4, 15.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oehii"]
+size = Vector2(13.8, 4.4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88ybb"]
+atlas = ExtResource("5_iu5vk")
+region = Rect2(64, 17, 14, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iav25"]
+atlas = ExtResource("5_iu5vk")
+region = Rect2(64, 27, 14, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fuy7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88ybb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iav25")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a2qng"]
+size = Vector2(32, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mau"]
 size = Vector2(216, 11)
@@ -33,6 +67,9 @@ size = Vector2(32, 232)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2ahw"]
 size = Vector2(160, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2snv0"]
+size = Vector2(82, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu5vk"]
 size = Vector2(3.20001, 43.2)
@@ -52,7 +89,6 @@ size = Vector2(73, 42)
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v2ahw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mivtr"]
-size = Vector2(144, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hjqsb"]
 size = Vector2(24, 240)
@@ -69,6 +105,9 @@ size = Vector2(72, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jencv"]
 size = Vector2(108, 54)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gdqbl"]
+size = Vector2(160, 20)
+
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_sq00h")
 
@@ -78,14 +117,11 @@ z_index = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="bedroom" type="Node2D" parent="."]
+script = ExtResource("3_88ybb")
 
 [node name="bedroom" type="Sprite2D" parent="bedroom"]
 scale = Vector2(5, 5)
 texture = ExtResource("3_y8n5u")
-
-[node name="box" parent="bedroom" instance=ExtResource("6_yqty0")]
-z_index = 1
-position = Vector2(504, -24)
 
 [node name="Borders" type="StaticBody2D" parent="bedroom"]
 collision_layer = 3
@@ -102,6 +138,49 @@ z_index = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/to_corner"]
 position = Vector2(280, -130.125)
 shape = SubResource("RectangleShape2D_efn8y")
+
+[node name="box" type="StaticBody2D" parent="bedroom"]
+position = Vector2(0.999999, 176)
+scale = Vector2(5, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/box"]
+position = Vector2(2.83122e-07, 0)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ip8e4")
+
+[node name="Sprite2D" type="Sprite2D" parent="bedroom/box"]
+texture = ExtResource("5_iu5vk")
+region_enabled = true
+region_rect = Rect2(17, 16, 14, 15)
+
+[node name="box" type="Area2D" parent="bedroom/box"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/box/box"]
+position = Vector2(-0.0999996, 7.8)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_oehii")
+
+[node name="lamp" type="Node2D" parent="bedroom"]
+
+[node name="animated_lamp" type="AnimatedSprite2D" parent="bedroom/lamp"]
+position = Vector2(118, -163)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_fuy7q")
+autoplay = "default"
+frame_progress = 0.358032
+
+[node name="static_lamp" type="Sprite2D" parent="bedroom/lamp"]
+position = Vector2(120, -144)
+scale = Vector2(5, 5)
+texture = ExtResource("5_iu5vk")
+region_enabled = true
+region_rect = Rect2(50, 17, 11, 31)
+
+[node name="lamp" type="Area2D" parent="bedroom/lamp"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/lamp/lamp"]
+position = Vector2(120, -120)
+shape = SubResource("RectangleShape2D_a2qng")
 
 [node name="corner" type="Node2D" parent="."]
 
@@ -164,6 +243,12 @@ shape = SubResource("RectangleShape2D_sm5re")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="entrance/to_parents_bedroom"]
 position = Vector2(1360, -640)
 shape = SubResource("RectangleShape2D_v2ahw")
+
+[node name="to_porch" type="Area2D" parent="entrance"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="entrance/to_porch"]
+position = Vector2(1375, -995)
+shape = SubResource("RectangleShape2D_2snv0")
 
 [node name="corridor" type="Node2D" parent="."]
 
@@ -252,7 +337,8 @@ polygon = PackedVector2Array(3.20001, 8, 102.4, 8, 102.4, 16, 158.4, 16, 158.4, 
 [node name="back_to_corridor2" type="Area2D" parent="living room"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="living room/back_to_corridor2"]
-position = Vector2(2320, -1648)
+z_index = 2
+position = Vector2(2544, -1736)
 shape = SubResource("RectangleShape2D_mivtr")
 
 [node name="kitchen" type="Node2D" parent="."]
@@ -379,12 +465,37 @@ position = Vector2(-176, 744)
 build_mode = 1
 polygon = PackedVector2Array(0, 0, 0, 224, 192, 224, 192, 104, 288, 104, 288, 152, 304, 152, 304, 80, 128, 80, 128, 104, 176, 104, 176, 208, 16, 208, 16, 16, 40, 16, 40, 0)
 
+[node name="garden2" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="garden2"]
+position = Vector2(4800, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("16_iu5vk")
+
+[node name="porch" type="Node2D" parent="."]
+
+[node name="porch" type="Sprite2D" parent="porch"]
+position = Vector2(1200, -2000)
+scale = Vector2(5, 5)
+texture = ExtResource("16_5tjy5")
+
+[node name="back_to_entrance3" type="Area2D" parent="porch"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="porch/back_to_entrance3"]
+position = Vector2(1360, -1648)
+shape = SubResource("RectangleShape2D_gdqbl")
+
 [connection signal="body_entered" from="bedroom/to_corner" to="dog" method="_on_to_corner_body_entered"]
+[connection signal="body_entered" from="bedroom/box/box" to="dog" method="_on_box_body_entered"]
+[connection signal="body_exited" from="bedroom/box/box" to="dog" method="_on_box_body_exited"]
+[connection signal="body_entered" from="bedroom/lamp/lamp" to="dog" method="_on_lamp_body_entered"]
+[connection signal="body_exited" from="bedroom/lamp/lamp" to="dog" method="_on_lamp_body_exited"]
 [connection signal="body_entered" from="corner/back_to_bedroom" to="dog" method="_on_back_to_bedroom_body_entered"]
 [connection signal="body_entered" from="corner/to_entrance" to="dog" method="_on_to_entrance_body_entered"]
 [connection signal="body_entered" from="entrance/to_corridor" to="dog" method="_on_to_corridor_body_entered"]
 [connection signal="body_entered" from="entrance/back_to_corner" to="dog" method="_on_back_to_corner_body_entered"]
 [connection signal="body_entered" from="entrance/to_parents_bedroom" to="dog" method="_on_to_parents_bedroom_body_entered"]
+[connection signal="body_entered" from="entrance/to_porch" to="dog" method="_on_to_porch_body_entered"]
 [connection signal="body_entered" from="corridor/back_to_entrance" to="dog" method="_on_back_to_entrance_body_entered"]
 [connection signal="body_entered" from="corridor/to_living_room" to="dog" method="_on_to_living_room_body_entered"]
 [connection signal="body_entered" from="corridor/to_bathroom" to="dog" method="_on_to_bathroom_body_entered"]
@@ -395,3 +506,4 @@ polygon = PackedVector2Array(0, 0, 0, 224, 192, 224, 192, 104, 288, 104, 288, 15
 [connection signal="body_entered" from="kitchen/to_garden" to="dog" method="_on_to_garden_body_entered"]
 [connection signal="body_entered" from="garden/back_to_kitchen" to="dog" method="_on_back_to_kitchen_body_entered"]
 [connection signal="body_entered" from="parent_bedroom/back_to_entrance2" to="dog" method="_on_back_to_entrance_2_body_entered"]
+[connection signal="body_entered" from="porch/back_to_entrance3" to="dog" method="_on_back_to_entrance_3_body_entered"]

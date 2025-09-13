@@ -4,12 +4,7 @@ extends CharacterBody2D
 @onready var sprites: Node2D = $sprites
 
 
-
-
-@onready var mini: Sprite2D = $mini
-
 @onready var game_manager: Node2D = $".."
-@onready var bed: Area2D = $"../Bed" # the collision to interact with the bed
 @onready var camera: Camera2D = $"../Camera2D"
 @onready var clock: Sprite2D = $"../clock/clock"
 
@@ -20,12 +15,19 @@ extends CharacterBody2D
 
 
 
-# checking if the player is currentyl colliding with the bed
-var player_bed_collision: bool = false
 
-# checking if the player collides with the clock collision
-var player_clock_collision: bool = false
+# checking if the player is colliding with the lamp
+var player_lamp_collision: bool = false
+var player_box_collision: bool = false
 
+
+# box
+@onready var box: StaticBody2D = $"../bedroom/box"
+
+
+
+
+@onready var bedroom_node: Node2D = $"../bedroom"
 
 # ALL ROOM SPRITES
 @onready var bedroom: Sprite2D = $"../bedroom/bedroom"
@@ -37,6 +39,7 @@ var player_clock_collision: bool = false
 @onready var kitchen: Sprite2D = $"../kitchen/kitchen"
 @onready var garden: Sprite2D = $"../garden/garden"
 @onready var parents_bedroom: Sprite2D = $"../parent_bedroom/parents_bedroom"
+@onready var porch: Sprite2D = $"../porch/porch"
 
 
 
@@ -102,20 +105,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	
-	# checking if the player is in the maze
-	#if game_manager.in_maze:
-		#
-		## TODO hide all the sprites in the sprite node
-		#
-		#mini.visible = true
-		#
-		#mini_collision.disabled = false
-		#original_collision.disabled = true
-		#
-		#
-		## change the speed, need to revert back
-		#speed = 250
-		#
+	
 		
 	
 	
@@ -123,30 +113,21 @@ func _physics_process(delta: float) -> void:
 # called every frame
 func _process(delta: float) -> void:
 	
-	# checking if the player interacts with the bed
-	if player_bed_collision and Input.is_action_just_pressed("Interact"):
-		camera.position.y = 880
-		player_bed_collision = false
-		game_manager.in_maze = true
+	# turning the lamp on and off
+	if player_lamp_collision and Input.is_action_pressed("Interact"):
+		if bedroom_node.bedroom_lamp_on:
+			bedroom_node.bedroom_lamp_on = false
+		else:
+			bedroom_node.bedroom_lamp_on = true
+			
+	
+	# moving the box
+	if player_box_collision and Input.is_action_pressed("Interact"):
+		box.position.y -= 10
 		
-		# move the player to the maze
-		position.x = -357
-		position.y = 1196
-		
-	elif player_clock_collision and Input.is_action_just_pressed("Interact"):
-		clock.visible = true
 		
 	
 
-# if the character is infront of the bed
-func _on_bed_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		player_bed_collision = true
-		
-		
-func _on_bed_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		player_bed_collision = false
 
 
 # MOVING BETWEEN THE ROOMS
@@ -248,3 +229,37 @@ func _on_back_to_entrance_2_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		camera.position = entrance.position
 		position.y = -712
+
+
+func _on_to_porch_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = porch.position
+		position.y = -1712
+		
+
+func _on_back_to_entrance_3_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		camera.position = entrance.position
+		position.y = -936
+
+
+func _on_lamp_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_lamp_collision = true
+		
+
+
+func _on_lamp_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_lamp_collision = true
+
+
+func _on_box_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_collision = true
+
+
+
+func _on_box_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_collision = false
