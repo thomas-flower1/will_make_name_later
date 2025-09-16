@@ -23,6 +23,9 @@ var player_box_collision: bool = false
 
 # box
 @onready var box: StaticBody2D = $"../bedroom/box"
+@onready var box_collision: CollisionShape2D = $"../bedroom/box/box/box_collision"
+@onready var static_box_collision: CollisionShape2D = $"../bedroom/box/static_box_collision"
+@onready var desk_collision: CollisionShape2D = $"../bedroom/desk_collision/desk_collision"
 
 
 
@@ -112,6 +115,7 @@ func _physics_process(delta: float) -> void:
 	
 # called every frame
 func _process(delta: float) -> void:
+	const move_box_distance: int = 40
 	
 	# turning the lamp on and off
 	if player_lamp_collision and Input.is_action_pressed("Interact"):
@@ -121,9 +125,20 @@ func _process(delta: float) -> void:
 			bedroom_node.bedroom_lamp_on = true
 			
 	
+	
+	if box.position.y == -64:
+		# we dont want the box to move past this point
+		box_collision.disabled = true
+		static_box_collision.disabled = true
+		desk_collision.disabled = true # get rid of the collision preventing the dog getting on the desk
+	
+		
 	# moving the box
-	if player_box_collision and Input.is_action_pressed("Interact"):
-		box.position.y -= 10
+	if player_box_collision and Input.is_action_just_pressed("Interact"):
+		box.position.y -= move_box_distance
+		
+	
+	
 		
 		
 	

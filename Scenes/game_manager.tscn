@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://ctxhvvde3yib3"]
+[gd_scene load_steps=46 format=3 uid="uid://ctxhvvde3yib3"]
 
 [ext_resource type="Script" uid="uid://bblv12c3w80es" path="res://Scripts/game_manager.gd" id="1_sq00h"]
 [ext_resource type="PackedScene" uid="uid://1efm72bghyw3" path="res://Scenes/dog.tscn" id="2_e5fcp"]
@@ -52,6 +52,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2qng"]
 size = Vector2(32, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6arl"]
+size = Vector2(114, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mau"]
 size = Vector2(216, 11)
@@ -130,7 +133,7 @@ collision_mask = 3
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="bedroom/Borders"]
 position = Vector2(-376, -80)
 build_mode = 1
-polygon = PackedVector2Array(0, 0, 232, 0, 232, 56, 328, 56, 328, 0, 416, 0, 416, -48, 600, -48, 600, -64, 704, -64, 704, -48, 760, -48, 760, 144, 720, 144, 720, 112, 664, 112, 664, 224, 576, 224, 536, 224, 536, 400, 216, 400, 216, 264, 120, 264, 120, 128, 0, 128)
+polygon = PackedVector2Array(0, 0, 232, 0, 232, 56, 320, 56, 320, -24, 192, -23, 191, -98, 432, -96, 432, -48, 600, -48, 600, -64, 704, -64, 704, -48, 760, -48, 760, 144, 720, 144, 720, 112, 664, 112, 664, 224, 576, 224, 536, 224, 536, 400, 216, 400, 216, 264, 120, 264, 120, 128, 0, 128)
 
 [node name="to_corner" type="Area2D" parent="bedroom"]
 z_index = 2
@@ -143,9 +146,8 @@ shape = SubResource("RectangleShape2D_efn8y")
 position = Vector2(0.999999, 176)
 scale = Vector2(5, 5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/box"]
+[node name="static_box_collision" type="CollisionShape2D" parent="bedroom/box"]
 position = Vector2(2.83122e-07, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ip8e4")
 
 [node name="Sprite2D" type="Sprite2D" parent="bedroom/box"]
@@ -155,9 +157,8 @@ region_rect = Rect2(17, 16, 14, 15)
 
 [node name="box" type="Area2D" parent="bedroom/box"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/box/box"]
+[node name="box_collision" type="CollisionShape2D" parent="bedroom/box/box"]
 position = Vector2(-0.0999996, 7.8)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_oehii")
 
 [node name="lamp" type="Node2D" parent="bedroom"]
@@ -181,6 +182,12 @@ region_rect = Rect2(50, 17, 11, 31)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bedroom/lamp/lamp"]
 position = Vector2(120, -120)
 shape = SubResource("RectangleShape2D_a2qng")
+
+[node name="desk_collision" type="StaticBody2D" parent="bedroom"]
+
+[node name="desk_collision" type="CollisionShape2D" parent="bedroom/desk_collision"]
+position = Vector2(-1, -111)
+shape = SubResource("RectangleShape2D_w6arl")
 
 [node name="corner" type="Node2D" parent="."]
 
