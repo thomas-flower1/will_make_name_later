@@ -19,13 +19,15 @@ extends CharacterBody2D
 
 # checking if the player is colliding with the lamp
 var player_lamp_collision: bool = false
-var player_box_collision: bool = false
+var player_box_bottom_collision: bool = false
+var player_box_right_collision: bool = false
 var player_phone_collision: bool = false
 
 
 # box
 @onready var box: StaticBody2D = $"../bedroom/box"
-@onready var box_collision: CollisionShape2D = $"../bedroom/box/box/box_collision"
+@onready var box_bottom_collision: CollisionShape2D = $"../bedroom/box/box_bottom/box_bottom_collision"
+@onready var box_right_collision: CollisionShape2D = $"../bedroom/box/box_right/box_right_collision"
 @onready var static_box_collision: CollisionShape2D = $"../bedroom/box/static_box_collision"
 @onready var desk_collision: CollisionShape2D = $"../bedroom/desk_collision/desk_collision"
 
@@ -134,25 +136,39 @@ func _process(delta: float) -> void:
 	
 	if box.position.y == -64:
 		# we dont want the box to move past this point
-		box_collision.disabled = true
+		box_bottom_collision.disabled = true
 		static_box_collision.disabled = true
 		desk_collision.disabled = true # get rid of the collision preventing the dog getting on the desk
 	
 		
 	# moving the box
-	if player_box_collision and Input.is_action_just_pressed("Interact"):
+	if player_box_bottom_collision and Input.is_action_just_pressed("Interact"):
 		box.position.y -= move_box_distance
+		
+		# then we need to disable the other collision
+		box_right_collision.disabled = true
 	
-	
-	# checking if the player is colliding with the phone
-	if player_phone_collision and Input.is_action_just_pressed("Interact"):
-		# need the player to disappear and also move the player to the new location
-		camera.position = phone.position
-		print('oj')
-		visible = false
+	if player_box_right_collision and Input.is_action_just_pressed("Interact"):
+		box.position.x -= move_box_distance
+		
+		# then disabe the other collision
+		box_bottom_collision.disabled = true
 	
 	
 		
+		
+	
+	if player_phone_collision and not visible and Input.is_action_just_pressed("Interact"):
+		camera.position = bedroom.position
+		visible = true
+	
+	# checking if the player is colliding with the phone
+	elif player_phone_collision and Input.is_action_just_pressed("Interact"):
+		# need the player to disappear and also move the player to the new location
+		camera.position = phone.position
+		visible = false
+	
+	
 		
 	
 
@@ -282,18 +298,6 @@ func _on_lamp_body_exited(body: Node2D) -> void:
 		player_lamp_collision = false
 
 
-func _on_box_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		player_box_collision = true
-
-
-
-func _on_box_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		player_box_collision = false
-
-
-
 
 
 func _on_tshirt_body_entered(body: Node2D) -> void:
@@ -313,4 +317,23 @@ func _on_desk_phone_body_entered(body: Node2D) -> void:
 
 func _on_desk_phone_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		player_box_collision = false
+		player_phone_collision = false
+
+
+func _on_box_bottom_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_bottom_collision = true
+
+func _on_box_bottom_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_bottom_collision = false
+
+
+func _on_box_right_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_right_collision =  true
+
+
+func _on_box_right_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_right_collision = false
