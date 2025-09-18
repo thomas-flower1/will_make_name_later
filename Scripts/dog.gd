@@ -16,9 +16,11 @@ extends CharacterBody2D
 
 
 
+
 # checking if the player is colliding with the lamp
 var player_lamp_collision: bool = false
 var player_box_collision: bool = false
+var player_phone_collision: bool = false
 
 
 # box
@@ -27,6 +29,7 @@ var player_box_collision: bool = false
 @onready var static_box_collision: CollisionShape2D = $"../bedroom/box/static_box_collision"
 @onready var desk_collision: CollisionShape2D = $"../bedroom/desk_collision/desk_collision"
 
+@onready var t_shirt: Node2D = $"../bedroom/t-shirt"
 
 
 
@@ -43,6 +46,8 @@ var player_box_collision: bool = false
 @onready var garden: Sprite2D = $"../garden/garden"
 @onready var parents_bedroom: Sprite2D = $"../parent_bedroom/parents_bedroom"
 @onready var porch: Sprite2D = $"../porch/porch"
+@onready var phone: Sprite2D = $"../phone/phone"
+
 
 
 
@@ -102,7 +107,8 @@ func _physics_process(delta: float) -> void:
 	# to allow move and slide to update
 	velocity.x = x_direction * speed
 	velocity.y = y_direction * speed
-	move_and_slide()
+	if visible:
+		move_and_slide()
 	
 
 	
@@ -118,7 +124,7 @@ func _process(delta: float) -> void:
 	const move_box_distance: int = 40
 	
 	# turning the lamp on and off
-	if player_lamp_collision and Input.is_action_pressed("Interact"):
+	if player_lamp_collision and Input.is_action_just_pressed("Interact"):
 		if bedroom_node.bedroom_lamp_on:
 			bedroom_node.bedroom_lamp_on = false
 		else:
@@ -136,7 +142,14 @@ func _process(delta: float) -> void:
 	# moving the box
 	if player_box_collision and Input.is_action_just_pressed("Interact"):
 		box.position.y -= move_box_distance
-		
+	
+	
+	# checking if the player is colliding with the phone
+	if player_phone_collision and Input.is_action_just_pressed("Interact"):
+		# need the player to disappear and also move the player to the new location
+		camera.position = phone.position
+		print('oj')
+		visible = false
 	
 	
 		
@@ -266,7 +279,7 @@ func _on_lamp_body_entered(body: Node2D) -> void:
 
 func _on_lamp_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		player_lamp_collision = true
+		player_lamp_collision = false
 
 
 func _on_box_body_entered(body: Node2D) -> void:
@@ -276,5 +289,28 @@ func _on_box_body_entered(body: Node2D) -> void:
 
 
 func _on_box_body_exited(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_box_collision = false
+
+
+
+
+
+func _on_tshirt_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		#add to inventory and remove the item
+		t_shirt.queue_free()
+		game_manager.inventory.append("t-shirt")
+		
+
+
+func _on_desk_phone_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		player_phone_collision = true
+
+		
+
+
+func _on_desk_phone_body_exited(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		player_box_collision = false
